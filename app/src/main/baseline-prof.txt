@@ -1,0 +1,15 @@
+# Startup profile rules: Android compiles the code matched here ahead of time, at install from
+# Google Play (or in the background after a sideloaded install), instead of interpreting it the first
+# few times it runs. The app's own code and the libraries that build each entry page are included.
+HSPLapp/stemma/**->**(**)**
+Lapp/stemma/**;
+HSPLorg/jsoup/**->**(**)**
+Lorg/jsoup/**;
+HSPLokhttp3/**->**(**)**
+Lokhttp3/**;
+HSPLokio/**->**(**)**
+Lokio/**;
+HSPLkotlinx/serialization/json/**->**(**)**
+Lkotlinx/serialization/json/**;
+HSPLkotlinx/coroutines/**->**(**)**
+Lkotlinx/coroutines/**;

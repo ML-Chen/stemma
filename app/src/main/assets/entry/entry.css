@@ -1,0 +1,431 @@
+/* Stylesheet for Wiktionary entries shown in the app's WebView.
+   Theme classes on <html>: wh-light, wh-sepia, wh-dark, wh-black. */
+
+:root,
+.wh-light {
+  --wh-bg: #ffffff;
+  --wh-text: #202122;
+  --wh-subtle: #54595d;
+  --wh-faint: #72777d;
+  --wh-link: #3366cc;
+  --wh-new: #b0473f;
+  --wh-border: #eaecf0;
+  --wh-border-strong: #c8ccd1;
+  --wh-panel: #f8f9fa;
+  --wh-panel-2: #eaecf0;
+  --wh-accent: #eaf3ff;
+  --wh-quote: #f8f9fa;
+  --wh-shadow: rgba(0, 0, 0, 0.06);
+
+  --wikt-palette-white: #ffffff;
+  --wikt-palette-black: #202122;
+  --wikt-palette-grey: #72777d;
+  --wikt-palette-lightgrey: #eaecf0;
+  --wikt-palette-lightergrey: #f8f9fa;
+  --wikt-palette-blue: #c6dbff;
+  --wikt-palette-lightblue: #d9ebff;
+  --wikt-palette-lighterblue: #ebf4ff;
+  --wikt-palette-paleblue: #f2f8ff;
+  --wikt-palette-cyan: #d7f3f5;
+  --wikt-palette-green: #d6f0d1;
+  --wikt-palette-lightgreen: #e8f6e5;
+  --wikt-palette-yellow: #fdf2c4;
+  --wikt-palette-lightyellow: #fffbe6;
+  --wikt-palette-beige: #f8f3e3;
+  --wikt-palette-orange: #ffe4c4;
+  --wikt-palette-red: #ffd6d6;
+  --wikt-palette-pink: #fde8ee;
+  --wikt-palette-purple: #e6dcf7;
+  --wikt-palette-lavender: #f1ecfa;
+}
+
+.wh-sepia {
+  --wh-bg: #f8f1e3;
+  --wh-text: #222222;
+  --wh-subtle: #646059;
+  --wh-faint: #7f7a71;
+  --wh-link: #3366cc;
+  --wh-new: #b0473f;
+  --wh-border: #e1dad1;
+  --wh-border-strong: #cbc8c1;
+  --wh-panel: #f0e6d6;
+  --wh-panel-2: #e8dcc8;
+  --wh-accent: #ebe2cf;
+  --wh-quote: #f0e8d8;
+  --wh-shadow: rgba(80, 60, 20, 0.08);
+
+  --wikt-palette-white: #fbf6ec;
+  --wikt-palette-lightgrey: #e8dcc8;
+  --wikt-palette-lightergrey: #f0e6d6;
+  --wikt-palette-lightblue: #dfe3e8;
+  --wikt-palette-lighterblue: #ebe8e2;
+  --wikt-palette-paleblue: #f0ece4;
+  --wikt-palette-lavender: #ece4e6;
+}
+
+.wh-dark,
+.wh-black {
+  --wh-bg: #1f2023;
+  --wh-text: #eaecf0;
+  --wh-subtle: #a2a9b1;
+  --wh-faint: #8b9198;
+  --wh-link: #88a3e8;
+  --wh-new: #e8857d;
+  --wh-border: #3a3d42;
+  --wh-border-strong: #54595d;
+  --wh-panel: #27292d;
+  --wh-panel-2: #303236;
+  --wh-accent: #233666;
+  --wh-quote: #27292d;
+  --wh-shadow: rgba(0, 0, 0, 0.3);
+
+  --wikt-palette-white: #1f2023;
+  --wikt-palette-black: #eaecf0;
+  --wikt-palette-grey: #a2a9b1;
+  --wikt-palette-lightgrey: #36393e;
+  --wikt-palette-lightergrey: #2b2d31;
+  --wikt-palette-blue: #2c4170;
+  --wikt-palette-lightblue: #263656;
+  --wikt-palette-lighterblue: #222d44;
+  --wikt-palette-paleblue: #222833;
+  --wikt-palette-cyan: #1f3b3d;
+  --wikt-palette-green: #233d24;
+  --wikt-palette-lightgreen: #213224;
+  --wikt-palette-yellow: #3d3519;
+  --wikt-palette-lightyellow: #333021;
+  --wikt-palette-beige: #34302a;
+  --wikt-palette-orange: #42301c;
+  --wikt-palette-red: #45262a;
+  --wikt-palette-pink: #3e2730;
+  --wikt-palette-purple: #352b4a;
+  --wikt-palette-lavender: #2e2a3b;
+}
+
+.wh-black {
+  --wh-bg: #000000;
+  --wh-panel: #121314;
+  --wh-panel-2: #1a1b1d;
+  --wh-quote: #121314;
+  --wh-border: #2a2c30;
+  --wikt-palette-white: #000000;
+}
+
+/* Tokens from Wikimedia's Codex design system, which Wiktionary templates reference. */
+:root {
+  --color-base: var(--wh-text);
+  --color-emphasized: var(--wh-text);
+  --color-subtle: var(--wh-subtle);
+  --color-placeholder: var(--wh-faint);
+  --color-progressive: var(--wh-link);
+  --color-inverted: var(--wh-bg);
+  --background-color-base: var(--wh-bg);
+  --background-color-neutral: var(--wh-panel-2);
+  --background-color-neutral-subtle: var(--wh-panel);
+  --background-color-interactive: var(--wh-panel-2);
+  --background-color-interactive-subtle: var(--wh-panel);
+  --background-color-progressive-subtle: var(--wh-accent);
+  --border-color-base: var(--wh-border-strong);
+  --border-color-subtle: var(--wh-border);
+  --border-color-muted: var(--wh-border);
+  --border-color-interactive: var(--wh-border-strong);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--wh-bg);
+}
+
+body {
+  margin: 0;
+  padding: 8px 18px 40px;
+  background: var(--wh-bg);
+  color: var(--wh-text);
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  -webkit-tap-highlight-color: rgba(51, 102, 204, 0.15);
+}
+
+a { color: var(--wh-link); text-decoration: none; }
+a.new, span.new, .new a { color: var(--wh-new); }
+strong.selflink, .selflink { font-weight: bold; }
+img { max-width: 100%; height: auto; }
+sup, sub { line-height: 0; }
+hr { border: 0; border-top: 1px solid var(--wh-border); }
+p { margin: 0.5em 0; }
+small { font-size: 85%; }
+
+/* Header */
+.wh-header { padding: 8px 0 4px; }
+.wh-title {
+  font-family: serif;
+  font-weight: normal;
+  font-size: 2.1em;
+  line-height: 1.2;
+  margin: 0.15em 0 0.35em;
+  overflow-wrap: anywhere;
+}
+.wh-langs { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 6px; }
+.wh-chip {
+  display: inline-block;
+  padding: 3px 11px;
+  border: 1px solid var(--wh-border-strong);
+  border-radius: 999px;
+  color: var(--wh-text);
+  font-size: 0.85em;
+  line-height: 1.6;
+  background: var(--wh-bg);
+}
+.wh-chip.wh-more { color: var(--wh-link); border-color: var(--wh-link); }
+
+/* Hatnotes before the first language ("See also: …") */
+.wh-preamble { color: var(--wh-subtle); font-size: 0.93em; margin: 4px 0 8px; }
+.wh-preamble .disambig-see-also { padding: 6px 0; }
+
+/* Language sections */
+details.lang { border-top: 1px solid var(--wh-border); }
+details.lang:last-of-type { border-bottom: 1px solid var(--wh-border); }
+summary.lang-head {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  cursor: pointer;
+}
+summary.lang-head::-webkit-details-marker { display: none; }
+summary.lang-head h2 {
+  margin: 0;
+  font-family: serif;
+  font-weight: normal;
+  font-size: 1.55em;
+  line-height: 1.3;
+  border: 0;
+}
+summary.lang-head::after {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin: 0 6px 0 12px;
+  border-right: 2px solid var(--wh-subtle);
+  border-bottom: 2px solid var(--wh-subtle);
+  transform: rotate(45deg) translate(-3px, -3px);
+  transition: transform 0.15s ease;
+}
+details.lang[open] > summary.lang-head::after { transform: rotate(-135deg) translate(-2px, -2px); }
+.lang-body { padding-bottom: 14px; }
+
+h3, h4, h5, h6 {
+  font-family: sans-serif;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 1.2em 0 0.35em;
+  color: var(--wh-text);
+}
+h3 { font-size: 1.15em; }
+h4 { font-size: 1.05em; }
+h5, h6 { font-size: 0.98em; color: var(--wh-subtle); }
+
+/* Headword line and definitions */
+.headword-line { display: block; margin: 0.4em 0; color: var(--wh-subtle); }
+strong.headword, .headword { color: var(--wh-text); font-weight: 700; font-size: 1.08em; }
+ol { margin: 0.4em 0 0.6em; padding-left: 1.6em; }
+ol > li { margin: 0.35em 0; padding-left: 0.15em; }
+ol > li::marker { color: var(--wh-subtle); font-weight: 600; }
+ol ol { padding-left: 1.3em; }
+ul { margin: 0.3em 0 0.6em; padding-left: 1.3em; }
+dl { margin: 0.2em 0; }
+dd { margin: 0.2em 0 0.2em 1em; }
+.ib-content, .label-content, .qualifier-content, .usage-label-sense { color: var(--wh-subtle); }
+.ib-brac, .ib-colon { color: var(--wh-faint); }
+.e-example, .h-usage-example i { color: var(--wh-text); }
+.h-usage-example { border-left: 3px solid var(--wh-border); padding-left: 10px; margin: 2px 0; }
+.nyms { font-size: 0.92em; color: var(--wh-subtle); }
+.nyms a { color: var(--wh-link); }
+.IPA { font-family: "Noto Sans", sans-serif; font-size: 1.02em; color: var(--wh-text); }
+.mention, .use-with-mention, i.Latn { font-style: italic; }
+.gender, .g { font-style: italic; color: var(--wh-subtle); }
+.tunk, .tneg, .tpos { vertical-align: 20%; font-size: 80%; }
+.senseid:target, :target { background: var(--wh-accent); border-radius: 4px; }
+
+/* Pronunciation audio */
+table.audiotable { display: inline-table !important; vertical-align: middle; margin: 2px 0 !important; border-collapse: collapse; }
+table.audiotable td { padding: 2px 6px 2px 0; vertical-align: middle; border: 0; }
+button.wh-audio {
+  display: inline-flex;
+  flex: none;
+  white-space: nowrap;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px 4px 8px;
+  border: 1px solid var(--wh-border-strong);
+  border-radius: 999px;
+  background: var(--wh-panel);
+  color: var(--wh-text);
+  font: inherit;
+  font-size: 0.85em;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.wh-audio-icon {
+  width: 0;
+  height: 0;
+  border-left: 9px solid var(--wh-link);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  margin-left: 3px;
+}
+button.wh-audio.playing .wh-audio-icon {
+  width: 9px;
+  height: 11px;
+  border: 0;
+  border-left: 3px solid var(--wh-link);
+  border-right: 3px solid var(--wh-link);
+}
+button.wh-audio.failed { opacity: 0.5; }
+
+/* Collapsible blocks: translations, inflection tables, term lists, quotations */
+details.wh-nav, details.wh-list, .wh-box {
+  margin: 8px 0;
+  border: 1px solid var(--wh-border);
+  border-radius: 10px;
+  background: var(--wh-bg);
+  overflow: hidden;
+}
+details.wh-nav > summary, details.wh-list > summary {
+  padding: 9px 12px;
+  background: var(--wh-panel);
+  cursor: pointer;
+  font-size: 0.93em;
+  list-style-position: inside;
+}
+details.wh-nav[open] > summary, details.wh-list[open] > summary { border-bottom: 1px solid var(--wh-border); }
+details.wh-nav > summary div, details.wh-nav > summary p { display: inline; margin: 0; }
+.wh-nav-body, .wh-list-body { padding: 8px 12px; overflow-x: auto; }
+.wh-box { padding: 8px 12px; background: var(--wh-panel); }
+.wh-box .NavHead { font-size: 0.93em; }
+.wh-count {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--wh-panel-2);
+  color: var(--wh-subtle);
+  font-size: 0.8em;
+}
+.wh-list-body ul, .term-list ul { columns: 2 9em; column-gap: 1.5em; margin: 0; padding-left: 1.1em; }
+.wh-list-body li { break-inside: avoid; }
+.columns-bg { background: transparent !important; }
+
+details.wh-quotes { margin: 2px 0 6px; }
+details.wh-quotes > summary {
+  display: inline-block;
+  color: var(--wh-link);
+  font-size: 0.85em;
+  cursor: pointer;
+  list-style: none;
+}
+details.wh-quotes > summary::-webkit-details-marker { display: none; }
+details.wh-quotes > summary::before { content: "▸ "; }
+details.wh-quotes[open] > summary::before { content: "▾ "; }
+details.wh-quotes > ul {
+  margin: 4px 0;
+  padding: 6px 10px 6px 26px;
+  background: var(--wh-quote);
+  border-radius: 8px;
+  font-size: 0.9em;
+}
+.cited-source { color: var(--wh-subtle); }
+
+/* Translation tables */
+table.translations { width: 100%; border: 0; }
+table.translations td { vertical-align: top; padding: 0 4px; }
+table.translations ul { margin: 0; padding-left: 1.1em; }
+.translation-table-checked, .trans-see { font-size: 0.93em; }
+
+/* Data tables */
+.wh-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 8px 0; }
+table { border-collapse: collapse; font-size: 0.9em; }
+table.wikitable, table.inflection-table, table.inflection, .wh-nav-body table {
+  border: 1px solid var(--wh-border-strong);
+  background: var(--wh-bg);
+}
+.wikitable th, .wikitable td, .inflection-table th, .inflection-table td, .wh-nav-body th, .wh-nav-body td {
+  border: 1px solid var(--wh-border-strong);
+  padding: 4px 8px;
+}
+th { background: var(--wh-panel); font-weight: 600; }
+caption { padding: 4px; color: var(--wh-subtle); }
+
+/* Sister-project boxes (Wikipedia, Wikidata) */
+.wh-sister, .sister-project, .interproject-box {
+  float: none !important;
+  display: block;
+  max-width: none !important;
+  margin: 8px 0 !important;
+  padding: 8px 10px;
+  border: 1px solid var(--wh-border);
+  border-radius: 10px;
+  background: var(--wh-panel);
+  font-size: 0.85em;
+  line-height: 1.45;
+}
+.interproject-box-logo, .sister-logo { display: none; }
+.interproject-box > div[style*="margin-left"] { margin-left: 0 !important; }
+
+/* Images: small thumbnails floated beside the text, so definitions stay near the top. */
+figure, .thumb {
+  float: right;
+  clear: right;
+  width: 40%;
+  max-width: 200px;
+  margin: 4px 0 10px 14px;
+}
+figure img, .thumb img { display: block; width: 100%; height: auto; border-radius: 6px; }
+figcaption, .thumbcaption { color: var(--wh-subtle); font-size: 0.78em; line-height: 1.35; margin-top: 4px; }
+.lang-body::after { content: ""; display: block; clear: both; }
+.floatleft, .floatright, .tright, .tleft { float: none !important; margin: 8px 0 !important; }
+
+/* References */
+sup.reference { font-size: 0.75em; }
+ol.references, .mw-references-wrap { font-size: 0.85em; color: var(--wh-subtle); }
+
+/* Etymology tree */
+details.etytree .wh-nav-body { overflow-x: auto; }
+
+/* Inline backgrounds set by templates stay light, so keep their text dark in dark themes. */
+.wh-dark [style*="background:#"], .wh-dark [style*="background: #"],
+.wh-dark [style*="background-color:#"], .wh-dark [style*="background-color: #"],
+.wh-black [style*="background:#"], .wh-black [style*="background: #"],
+.wh-black [style*="background-color:#"], .wh-black [style*="background-color: #"] {
+  color: #202122;
+}
+.wh-dark [style*="background:#"] a, .wh-dark [style*="background: #"] a,
+.wh-black [style*="background:#"] a, .wh-black [style*="background: #"] a {
+  color: #2a4b8d;
+}
+.wh-dark img, .wh-black img { opacity: 0.92; }
+
+/* Footer */
+.wh-footer {
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid var(--wh-border);
+  color: var(--wh-faint);
+  font-size: 0.8em;
+  line-height: 1.5;
+}
+.wh-footer a { color: var(--wh-subtle); text-decoration: underline; }
+
+/* Elements meant for the desktop site or for editors */
+.noprint.maintenance-box, .mw-editsection, .editsection, .previewonly, .interProject,
+.checktrans, .trreq, .ttbc-wrapper .editlink, .mw-kartographer-maplink { display: none !important; }
+
+@media (min-width: 600px) {
+  body { padding-left: 32px; padding-right: 32px; }
+  .wh-list-body ul, .term-list ul { columns: 3 9em; }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The name shown under the app icon. -->
+    <string name="app_name">Stemma</string>
+    <!-- Shown in the text-selection menu of other apps. -->
+    <string name="define_label">Define</string>
+    <string name="retry">Try again</string>
+    <string name="webview_unavailable">Entries can\'t be shown because Android System WebView is unavailable or updating. Try again in a moment, or update Android System WebView from Google Play.</string>
+    <string name="shortcut_search_short">Search</string>
+    <string name="shortcut_search_long">Search Wiktionary</string>
+</resources>

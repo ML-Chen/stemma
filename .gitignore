@@ -1,0 +1,19 @@
+.gradle/
+build/
+app/build/
+local.properties
+.idea/
+*.iml
+.kotlin/
+captures/
+# Release signing secrets. Keep these somewhere safe, outside version control.
+keystore.properties
+*.jks
+*.keystore
+store/raw/
+# Built apps and generated files.
+release/
+*.apk
+*.aab
+store/tools/logo/build/
+__pycache__/
