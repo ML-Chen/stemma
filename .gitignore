@@ -17,3 +17,5 @@ release/
 *.aab
 store/tools/logo/build/
 __pycache__/
+# Except the published APK, which is shared from the repository.
+!downloads/*.apk

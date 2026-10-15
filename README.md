@@ -31,7 +31,7 @@ A stemma is a family tree of descent. The asterisk at the centre of the icon is 
 
 Stemma is not on Google Play. To install it on an Android phone running Android 8.0 or later:
 
-1. On the phone, download `Stemma-1.0.0.apk` from the [latest release](https://github.com/ML-Chen/stemma/releases/latest).
+1. On the phone, download [Stemma-1.0.0.apk](https://github.com/ML-Chen/stemma/raw/main/downloads/Stemma-1.0.0.apk) (2.7 MB) from the `downloads` folder.
 2. Open the downloaded file. Android asks once for permission to install apps from your browser or file manager; allow it.
 
 You can also build the app yourself, as described below.
