@@ -133,6 +133,10 @@ fun errorMessage(error: Throwable): String = when (error) {
  */
 fun openInBrowser(context: Context, url: String) {
     val uri = url.toUri()
+    // Only web pages: links come from page content, and other schemes (intent:, file:, content:,
+    // app-specific schemes) could start activities other than a browser.
+    val scheme = uri.scheme?.lowercase()
+    if (scheme != "http" && scheme != "https") return
     val customTabsBrowser = CustomTabsClient.getPackageName(context, null)
     if (customTabsBrowser != null && customTabsBrowser != context.packageName) {
         try {

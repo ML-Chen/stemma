@@ -136,4 +136,41 @@ class EntryProcessorTest {
             assertTrue(e.summary.definition, e.summary.definition.isNotBlank())
         }
     }
+
+    @Test
+    fun removesScriptCapableContent() {
+        val page = """
+            <html><body><div id="pcs"><section data-mw-section-id="1">
+            <h2 id="English">English</h2>
+            <h3 id="Noun">Noun</h3>
+            <ol><li>A test word.
+              <img src="https://upload.wikimedia.org/a.png" onerror="alert(1)" OnLoad="alert(2)">
+              <a href="javascript:alert(3)" onmouseover="alert(4)">bad link</a>
+              <a href=" JaVaScRiPt:alert(5)">spaced link</a>
+              <a href="vbscript:msgbox(6)">vb link</a>
+              <a href="data:text/html,hi">data link</a>
+              <a href="./other">good link</a>
+              <img src="https://upload.wikimedia.org/b.png" srcset="https://upload.wikimedia.org/b2.png 2x, data:image/png;base64,AA 3x">
+              <iframe src="https://example.com/"></iframe>
+              <object data="x.swf"></object><embed src="x.swf">
+              <form action="https://example.com/"><input name="q"></form>
+            </li></ol>
+            </section></div></body></html>
+        """.trimIndent()
+        val processed = Jsoup.parseBodyFragment(EntryProcessor.process(page, "test", "English", 0L).bodyHtml)
+
+        val attributes = processed.getAllElements().flatMap { el -> el.attributes().asList().map { it.key to it.value } }
+        assertTrue(attributes.toString(), attributes.none { it.first.lowercase().startsWith("on") })
+        assertTrue(processed.select("iframe, object, embed, form, input").isEmpty())
+        for (link in processed.select("a")) {
+            val href = link.attr("href").trim().lowercase()
+            assertFalse(link.outerHtml(), href.startsWith("javascript:") || href.startsWith("vbscript:") || href.startsWith("data:"))
+        }
+        assertEquals("good link", processed.select("a[href]").single().text())
+        // The images and their ordinary attributes are kept; only the handlers and the unsafe srcset go.
+        assertEquals(2, processed.select("img[src^=https://upload.wikimedia.org/]").size)
+        assertTrue(processed.select("img[srcset]").isEmpty())
+        assertTrue(EntryProcessor.isUnsafeUrl("\tjava\nscript:alert(1)"))
+        assertFalse(EntryProcessor.isUnsafeUrl("https://en.wiktionary.org/wiki/dog"))
+    }
 }
