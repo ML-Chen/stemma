@@ -154,6 +154,7 @@ class EntryProcessorTest {
               <iframe src="https://example.com/"></iframe>
               <object data="x.swf"></object><embed src="x.swf">
               <form action="https://example.com/"><input name="q"></form>
+              <svg><a><animate attributeName="href" values="javascript:alert(7)"/><set attributeName="href" to="javascript:alert(8)"/><text>svg link</text></a></svg>
             </li></ol>
             </section></div></body></html>
         """.trimIndent()
@@ -161,7 +162,8 @@ class EntryProcessorTest {
 
         val attributes = processed.getAllElements().flatMap { el -> el.attributes().asList().map { it.key to it.value } }
         assertTrue(attributes.toString(), attributes.none { it.first.lowercase().startsWith("on") })
-        assertTrue(processed.select("iframe, object, embed, form, input").isEmpty())
+        assertTrue(processed.select("iframe, object, embed, form, input, animate, set").isEmpty())
+        assertFalse(processed.outerHtml(), processed.outerHtml().contains("javascript:", ignoreCase = true))
         for (link in processed.select("a")) {
             val href = link.attr("href").trim().lowercase()
             assertFalse(link.outerHtml(), href.startsWith("javascript:") || href.startsWith("vbscript:") || href.startsWith("data:"))

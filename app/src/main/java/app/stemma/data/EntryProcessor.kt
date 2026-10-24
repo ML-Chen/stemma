@@ -80,7 +80,7 @@ object EntryProcessor {
 
     private fun removeChrome(root: Element) {
         root.select(
-            "script, iframe, frame, frameset, object, embed, applet, form, base, " +
+            "script, iframe, frame, frameset, object, embed, applet, form, base, animate, set, animateMotion, animateTransform, discard, " +
                 "header, link, meta, hr.pcs-fold-hr, .pcs-edit-section-link-container, " +
                 ".pcs-section-control, .mw-empty-elt, .sister-wikidata, .audiometa, " +
                 ".pcs-collapse-table-collapsed-container, .pcs-collapse-table-collapsed-bottom",
@@ -110,7 +110,7 @@ object EntryProcessor {
      * again here in case a later step produced one.
      */
     private fun removeActiveContent(root: Element) {
-        root.select("script, iframe, frame, frameset, object, embed, applet, form, base").remove()
+        root.select("script, iframe, frame, frameset, object, embed, applet, form, base, animate, set, animateMotion, animateTransform, discard").remove()
         for (el in root.getAllElements()) {
             val names = el.attributes().asList().map { it.key }
             for (name in names) {
