@@ -13,7 +13,9 @@ import org.jsoup.nodes.Element
  * - translation boxes, inflection tables and long term lists become collapsible blocks,
  * - quotations under each definition are collapsed behind a "Quotations" toggle,
  * - audio players become a single play button,
- * - editing controls, scripts and large metadata attributes are removed.
+ * - editing controls, scripts and large metadata attributes are removed,
+ * - anything that could run script in the WebView (event-handler attributes, `javascript:` and
+ *   similar URLs, embedded frames, plugins and forms) is removed, since the page has a JS bridge.
  */
 object EntryProcessor {
 
@@ -22,6 +24,15 @@ object EntryProcessor {
         "data-etytree-width", "data-file-width", "data-file-height", "data-file-type",
         "data-durationhint", "data-mw-section-id", "data-mw-wikitext", "data-id", "data-action",
     )
+
+    /** Attributes that hold a URL the WebView might load or navigate to. */
+    private val urlAttributes = setOf(
+        "href", "src", "data-src", "srcset", "action", "formaction", "poster", "background",
+        "xlink:href", "cite", "longdesc",
+    )
+
+    /** URL schemes that run script or embed arbitrary content when loaded or followed. */
+    private val unsafeSchemes = listOf("javascript:", "data:", "vbscript:")
 
     fun process(html: String, requestedTitle: String, preferredLanguage: String, now: Long = System.currentTimeMillis()): EntryContent {
         val doc = Jsoup.parse(html, Titles.SITE + "/wiki/")
@@ -46,6 +57,7 @@ object EntryProcessor {
         replaceAudio(root)
         tidyMedia(root)
         wrapTables(root)
+        removeActiveContent(root)
 
         val languages = buildLanguageSections(root)
         val summary = summarize(root, languages, preferredLanguage)
@@ -68,7 +80,8 @@ object EntryProcessor {
 
     private fun removeChrome(root: Element) {
         root.select(
-            "script, header, link, meta, hr.pcs-fold-hr, .pcs-edit-section-link-container, " +
+            "script, iframe, frame, frameset, object, embed, applet, form, base, " +
+                "header, link, meta, hr.pcs-fold-hr, .pcs-edit-section-link-container, " +
                 ".pcs-section-control, .mw-empty-elt, .sister-wikidata, .audiometa, " +
                 ".pcs-collapse-table-collapsed-container, .pcs-collapse-table-collapsed-bottom",
         ).remove()
@@ -88,6 +101,36 @@ object EntryProcessor {
             // Link tooltips repeat the page name and make up a large share of the page.
             if (el.tagName() == "a") el.removeAttr("title")
         }
+    }
+
+    /**
+     * Last pass over the finished tree: drops every event-handler attribute (`on…`, in any case)
+     * and every URL attribute whose scheme could run script (`javascript:`, `data:`, `vbscript:`).
+     * Elements that embed other content are already gone (see [removeChrome]); they are removed
+     * again here in case a later step produced one.
+     */
+    private fun removeActiveContent(root: Element) {
+        root.select("script, iframe, frame, frameset, object, embed, applet, form, base").remove()
+        for (el in root.getAllElements()) {
+            val names = el.attributes().asList().map { it.key }
+            for (name in names) {
+                val lower = name.lowercase()
+                if (lower.startsWith("on")) {
+                    el.removeAttr(name)
+                } else if (lower == "srcset") {
+                    // A comma-separated list of candidates; drop it if any candidate is unsafe.
+                    if (el.attr(name).split(',').any { isUnsafeUrl(it) }) el.removeAttr(name)
+                } else if (lower in urlAttributes && isUnsafeUrl(el.attr(name))) {
+                    el.removeAttr(name)
+                }
+            }
+        }
+    }
+
+    /** True if the URL uses a script-capable scheme; browsers ignore whitespace and control characters in it. */
+    internal fun isUnsafeUrl(value: String): Boolean {
+        val compact = value.filterNot { it <= ' ' }.lowercase()
+        return unsafeSchemes.any { compact.startsWith(it) }
     }
 
     /**
